@@ -104,4 +104,8 @@ public class InvoiceService {
 		return invoice;
 	}
 	
+	public Collection<Item> getItems(Long id) {
+		return this.invoiceRepository.getOne(id).getItems();
+	}
+	
 }

@@ -35,6 +35,11 @@ public class InvoiceController {
 		return this.service.getInvoice(id);
 	}
 	
+	@RequestMapping(path = "/{id}/items", method = RequestMethod.GET)
+	public Collection<Item> getItems(@PathVariable final Long id) {
+		return this.service.getItems(id);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public Invoice addInvoice(@RequestBody @Valid CreateInvoiceCommand createInvoiceCommand) {
 		return this.service.addInvoice(createInvoiceCommand);
