@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Invoice {
 	private String whatCompanyWrote;
 	private String reciever;
 	
-	@OneToMany(mappedBy = "invoice")
+	@OneToMany(mappedBy = "invoice", cascade=CascadeType.ALL)
 	private Set<Item> items = new HashSet<>();
 	
 	public Collection<Item> getItems() {
@@ -34,7 +35,7 @@ public class Invoice {
 	
 	public void addItem(Item item) {
 		this.items.add(item);
-		item.setInvoice(this);
+		item.setInvoice(this); 
 	}
 	
 	public Invoice() { }
@@ -81,6 +82,5 @@ public class Invoice {
 	public void setReciever(String reciever) {
 		this.reciever = reciever;
 	}
-	
 	
 }

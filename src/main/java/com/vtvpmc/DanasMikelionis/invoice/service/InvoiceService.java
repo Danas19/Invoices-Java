@@ -58,33 +58,50 @@ public class InvoiceService {
 		return item;
 	}
 	
-	public Invoice deleteInvoice(Long id) {
-		Invoice invoice = this.invoiceRepository.getOne(id);
-		this.invoiceRepository.deleteById(id);
-		return invoice;
+	public String deleteInvoice(Long id) {
+		if (invoiceRepository.findById(id).orElse(null) != null) {
+			this.invoiceRepository.deleteById(id);
+			return "Invoice with Id " + id + " was removed.";
+		}
+		return "! There is no invoice with id: '" + id + "'. No invoice was deleted.";
+	}
+	
+	public String deleteItem(Long id) {
+		if (itemRepository.findById(id).orElse(null) != null) {
+			itemRepository.deleteById(id);
+			return "Item with Id " + id + " was removed.";
+		}
+		return "! There is no item with id: '" + id + "'. No item was deleted.";
 	}
 	
 	public Item modifyItem(Long id, CreateItemCommand createItemCommand) {
-		this.itemRepository.getOne(id).setHeightCm(createItemCommand.getHeightCm());
-		this.itemRepository.getOne(id)
-			.setInvoice(this.itemRepository.getOne(id).getInvoice());
-		this.itemRepository.getOne(id).setName(createItemCommand.getName());
-		this.itemRepository.getOne(id)
-			.setPriceEuroCents(createItemCommand.getPriceEuroCents());
-		this.itemRepository.getOne(id).setQuantity(createItemCommand.getQuantity());
-		this.itemRepository.getOne(id).setWidthCm(createItemCommand.getWidthCm());
+		if (id == null || itemRepository.getOne(id) == null) {
+			return null;
+		}
+		Item item = this.itemRepository.getOne(id);
+		item.setHeightCm(createItemCommand.getHeightCm());
+		item.setInvoice(this.itemRepository.getOne(id).getInvoice());
+		item.setName(createItemCommand.getName());
+		item.setPriceEuroCents(createItemCommand.getPriceEuroCents());
+		item.setQuantity(createItemCommand.getQuantity());
+		item.setWidthCm(createItemCommand.getWidthCm());
+		itemRepository.save(item);
 		
-		return itemRepository.getOne(id);
+		return item;
 	}
 	
 	public Invoice modifyInvoice(Long id, CreateInvoiceCommand createInvoiceCommand) {
-		this.invoiceRepository.getOne(id).setNumber(createInvoiceCommand.getNumber());
-		this.invoiceRepository.getOne(id).setReciever(createInvoiceCommand.getReciever());
-		this.invoiceRepository.getOne(id)
-			.setWhatCompanyWrote(createInvoiceCommand.getWhatCompanyWrote());
-		this.invoiceRepository.getOne(id).setWritingDate(createInvoiceCommand.getWritingDate());
+		if (id == null || invoiceRepository.findById(id) == null) {
+			return null;
+		}
+		Invoice invoice = this.invoiceRepository.getOne(id);
+		invoice.setNumber(createInvoiceCommand.getNumber());
+		invoice.setReciever(createInvoiceCommand.getReciever());
+		invoice.setWhatCompanyWrote(createInvoiceCommand.getWhatCompanyWrote());
+		invoice.setWritingDate(createInvoiceCommand.getWritingDate());
+		invoiceRepository.save(invoice);
 		
-		return invoiceRepository.getOne(id);
+		return invoice;
 	}
-
+	
 }

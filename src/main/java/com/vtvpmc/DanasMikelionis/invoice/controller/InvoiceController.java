@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.vtvpmc.DanasMikelionis.invoice.service.InvoiceService;
 
 @RestController
 @RequestMapping(value="/api/invoices")
+@CrossOrigin
 public class InvoiceController {
 	@Autowired
 	private InvoiceService service;
@@ -57,7 +59,12 @@ public class InvoiceController {
 	}
 	
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	public Invoice deleteItem(@RequestBody final Long id) {
+	public String deleteInvoice(@PathVariable final Long id) {
 		return this.service.deleteInvoice(id);
+	}
+	
+	@RequestMapping(path = "/delete/item/{itemId}", method = RequestMethod.DELETE)
+	public String deleteItem(@PathVariable final long itemId) {
+		return this.service.deleteItem(itemId);
 	}
 }
