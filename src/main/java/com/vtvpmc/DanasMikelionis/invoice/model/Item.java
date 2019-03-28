@@ -75,6 +75,7 @@ public class Item {
 	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		this.totalEuroCents = this.priceEuroCents * quantity;
 	}
 	
 	public void setHeightCm(int heightCm) {
@@ -87,10 +88,15 @@ public class Item {
 	
 	public void setPriceEuroCents(long priceEuroCents) {
 		this.priceEuroCents = priceEuroCents;
+		this.totalEuroCents = priceEuroCents * this.quantity;
 	}
 	
 	public long getTotalEuroCents() {
 		return this.totalEuroCents;
+	}
+	
+	public void setTotalEuroCents(int totalEuroCents) {
+		this.totalEuroCents = totalEuroCents;
 	}
 	
 }
