@@ -5,15 +5,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Invoice {
@@ -81,6 +78,18 @@ public class Invoice {
 	
 	public void setReciever(String reciever) {
 		this.reciever = reciever;
+	}
+	
+	public long getEuros() {
+		return this.getItems().stream()
+		.mapToLong(i -> i.getTotalEuroCents())
+		.sum() / 100L;
+	}
+	
+	public long getCents() {
+		return this.getItems().stream()
+		.mapToLong(i -> i.getTotalEuroCents())
+		.sum() % 100L;
 	}
 	
 }
