@@ -33,8 +33,8 @@ public class InvoiceService {
 		return this.invoiceRepository.findAll();
 	}
 	
-	public Invoice getInvoice(Long id) {
-		return this.invoiceRepository.findById(id).orElse(null);
+	public Invoice getInvoice(Long invoiceId) {
+		return this.invoiceRepository.findById(invoiceId).orElse(null);
 	}
 	
 	public Invoice addInvoice(CreateInvoiceCommand createInvoiceCommand) {
@@ -47,23 +47,22 @@ public class InvoiceService {
 		return invoice;
 	}
 	
-	public Item addItem(Long id, CreateItemCommand createItemCommand) {
+	public Item addItem(Long invoiceId, CreateItemCommand createItemCommand) {
 		Item item = new Item(createItemCommand.getName(), createItemCommand.getQuantity(),
 				createItemCommand.getHeightCm(), createItemCommand.getWidthCm(),
 					createItemCommand.getPriceEuroCents());
-		item.setInvoice(invoiceRepository.getOne(id));
+		item.setInvoice(invoiceRepository.getOne(invoiceId));
 		this.itemRepository.save(item);
-		//this.invoiceRepository.getOne(createItemCommand.getInvoiceId()).addItem(item);
 		
 		return item;
 	}
 	
-	public String deleteInvoice(Long id) {
-		if (invoiceRepository.findById(id).orElse(null) != null) {
-			this.invoiceRepository.deleteById(id);
-			return "Invoice with Id " + id + " was removed.";
+	public String deleteInvoice(Long invoiceId) {
+		if (invoiceRepository.findById(invoiceId).orElse(null) != null) {
+			this.invoiceRepository.deleteById(invoiceId);
+			return "Invoice with Id " + invoiceId + " was removed.";
 		}
-		return "! There is no invoice with id: '" + id + "'. No invoice was deleted.";
+		return "! There is no invoice with id: '" + invoiceId + "'. No invoice was deleted.";
 	}
 	
 	public String deleteItem(Long id) {
@@ -74,13 +73,13 @@ public class InvoiceService {
 		return "! There is no item with id: '" + id + "'. No item was deleted.";
 	}
 	
-	public Item modifyItem(Long id, CreateItemCommand createItemCommand) {
-		if (id == null || itemRepository.getOne(id) == null) {
+	public Item modifyItem(Long itemId, CreateItemCommand createItemCommand) {
+		if (itemId == null || itemRepository.getOne(itemId) == null) {
 			return null;
 		}
-		Item item = this.itemRepository.getOne(id);
+		Item item = this.itemRepository.getOne(itemId);
 		item.setHeightCm(createItemCommand.getHeightCm());
-		item.setInvoice(this.itemRepository.getOne(id).getInvoice());
+		item.setInvoice(this.itemRepository.getOne(itemId).getInvoice());
 		item.setName(createItemCommand.getName());
 		item.setPriceEuroCents(createItemCommand.getPriceEuroCents());
 		item.setQuantity(createItemCommand.getQuantity());
@@ -90,11 +89,11 @@ public class InvoiceService {
 		return item;
 	}
 	
-	public Invoice modifyInvoice(Long id, CreateInvoiceCommand createInvoiceCommand) {
-		if (id == null || invoiceRepository.findById(id) == null) {
+	public Invoice modifyInvoice(Long invoiceId, CreateInvoiceCommand createInvoiceCommand) {
+		if (invoiceId == null || invoiceRepository.findById(invoiceId) == null) {
 			return null;
 		}
-		Invoice invoice = this.invoiceRepository.getOne(id);
+		Invoice invoice = this.invoiceRepository.getOne(invoiceId);
 		invoice.setNumber(createInvoiceCommand.getNumber());
 		invoice.setReciever(createInvoiceCommand.getReciever());
 		invoice.setWhatCompanyWrote(createInvoiceCommand.getWhatCompanyWrote());
@@ -104,8 +103,8 @@ public class InvoiceService {
 		return invoice;
 	}
 	
-	public Collection<Item> getItems(Long id) {
-		return this.invoiceRepository.getOne(id).getItems();
+	public Collection<Item> getItems(Long invoiceId) {
+		return this.invoiceRepository.getOne(invoiceId).getItems();
 	}
 	
 }
