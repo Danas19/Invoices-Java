@@ -1,4 +1,4 @@
-package com.vtvpmc.DanasMikelionis.invoice;
+package com.vtvpmc.DanasMikelionis.invoice.model.createCommands;
 
 import javax.validation.constraints.NotNull;
 

@@ -6,10 +6,10 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vtvpmc.DanasMikelionis.invoice.CreateInvoiceCommand;
-import com.vtvpmc.DanasMikelionis.invoice.CreateItemCommand;
 import com.vtvpmc.DanasMikelionis.invoice.model.Invoice;
 import com.vtvpmc.DanasMikelionis.invoice.model.Item;
+import com.vtvpmc.DanasMikelionis.invoice.model.createCommands.CreateInvoiceCommand;
+import com.vtvpmc.DanasMikelionis.invoice.model.createCommands.CreateItemCommand;
 import com.vtvpmc.DanasMikelionis.invoice.repository.InvoiceRepository;
 import com.vtvpmc.DanasMikelionis.invoice.repository.ItemRepository;
 

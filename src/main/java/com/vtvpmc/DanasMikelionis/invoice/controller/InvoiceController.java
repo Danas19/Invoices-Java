@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vtvpmc.DanasMikelionis.invoice.CreateInvoiceCommand;
-import com.vtvpmc.DanasMikelionis.invoice.CreateItemCommand;
 import com.vtvpmc.DanasMikelionis.invoice.model.Invoice;
 import com.vtvpmc.DanasMikelionis.invoice.model.Item;
+import com.vtvpmc.DanasMikelionis.invoice.model.createCommands.CreateInvoiceCommand;
+import com.vtvpmc.DanasMikelionis.invoice.model.createCommands.CreateItemCommand;
 import com.vtvpmc.DanasMikelionis.invoice.service.InvoiceService;
 
 @RestController
