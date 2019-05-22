@@ -22,7 +22,7 @@ import com.vtvpmc.DanasMikelionis.invoice.model.createCommands.CreateItemCommand
 import com.vtvpmc.DanasMikelionis.invoice.service.InvoiceService;
 
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping("/api")
 @CrossOrigin
 public class InvoiceController {
 	@Autowired
