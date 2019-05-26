@@ -10,8 +10,7 @@ class Show extends Component {
     this.state = {
       invoice: {},
       items: [],
-      invoiceCents: 0,
-      invoiceEuros: 0
+      invoiceTotalCents: 0
     };
   }
 
@@ -20,11 +19,8 @@ class Show extends Component {
   componentDidMount() {
     axios.get('http://localhost:8080/api/invoices/'+this.props.match.params.id)
       .then(res => {
-        this.setState({ invoice: res.data, items: res.data.items, invoiceCents: res.data.cents, invoiceEuros: res.data.euros });
+        this.setState({ invoice: res.data, items: res.data.items, invoiceTotalCents: res.data.euros * 100 + res.data.cents });
         console.log(this.state.invoice);
-
-        document.getElementById('showInvoiceSumOfMoney').innerHTML = "Euros: " +  this.state.invoiceEuros 
-                    + ". Cents: " + this.state.invoiceCents;
       });
   }
 
@@ -39,7 +35,11 @@ class Show extends Component {
   deleteItem(id) {
     console.log('deleting item...');
     axios.delete('http://localhost:8080/api/invoices/delete/item/'+id);
+
     var itemIndex = this.state.items.findIndex(i => i.id === id);
+    var newInvoiceTotalCents = this.state.invoiceTotalCents - this.state.items[itemIndex].totalEuroCents;
+    this.setState({invoiceTotalCents: newInvoiceTotalCents});
+
     var newItems = 
           [...this.state.items.slice(0, itemIndex),
                ...this.state.items.slice(itemIndex + 1)];
@@ -49,6 +49,7 @@ class Show extends Component {
   }
 
   render() {
+    const invoiceTotalCents = this.state.invoiceTotalCents;
     return (
       <div className="container show">
         <div className="panel panel-default">
@@ -104,7 +105,7 @@ class Show extends Component {
                   
               </tbody>
             </table>
-            <h4 id="showInvoiceSumOfMoney"></h4>
+            <h4 id="showInvoiceSumOfMoney">{`${parseInt(invoiceTotalCents / 100)} euros and ${invoiceTotalCents % 100} cents.`}</h4>
             
             <Link to={`/addItem/${this.state.invoice.id}`}>Add New Item</Link>
           </div>
