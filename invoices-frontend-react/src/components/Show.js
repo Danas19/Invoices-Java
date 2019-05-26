@@ -39,9 +39,11 @@ class Show extends Component {
   deleteItem(id) {
     console.log('deleting item...');
     axios.delete('http://localhost:8080/api/invoices/delete/item/'+id);
-    let items = this.state.items;
-    let newItems = items.filter(i => i.id !== id);
-      this.setState({items: newItems})
+    var itemIndex = this.state.items.findIndex(i => i.id === id);
+    var newItems = 
+          [...this.state.items.slice(0, itemIndex),
+               ...this.state.items.slice(itemIndex + 1)];
+    this.setState({items: newItems});
 
     console.log('item deleted');
   }
