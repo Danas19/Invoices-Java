@@ -53,7 +53,7 @@ public class InvoiceController {
 	
 	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
 	public Invoice modifyInvoice(@PathVariable final Long id,
-			@RequestBody CreateInvoiceCommand createInvoiceCommand) {
+			@RequestBody @Valid CreateInvoiceCommand createInvoiceCommand) {
 		return this.service.modifyInvoice(id, createInvoiceCommand);
 	}
 	

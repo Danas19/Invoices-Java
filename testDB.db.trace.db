@@ -1,0 +1,9 @@
+2019-05-30 10:38:37 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "EXPLAIN ALTER[*] "; expected "ANALYZE, PLAN, SELECT, FROM, (, WITH, DELETE, UPDATE, INSERT, MERGE"; SQL statement:
+EXPLAIN alter [42001-197]
+2019-05-30 10:38:41 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "EXPLAIN[*]"; expected "ANALYZE, PLAN, SELECT, FROM, (, WITH, DELETE, UPDATE, INSERT, MERGE"; SQL statement:
+EXPLAIN [42001-197]
+2019-05-30 10:38:45 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER EXPLAIN[*] "; expected "TABLE, USER, INDEX, SCHEMA, SEQUENCE, VIEW"; SQL statement:
+alter EXPLAIN [42001-197]
